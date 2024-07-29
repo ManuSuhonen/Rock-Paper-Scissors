@@ -1,18 +1,21 @@
 console.log("LOADED");
 
-const choices = ["ROCK", "PAPER", "SCISSORS"];
 let humanScore = 0, compScore = 0;
 
+const choices = [
+    { val: "ROCK", weakness: "PAPER" },
+    { val: "PAPER", weakness: "SCISSORS" },
+    { val: "SCISSORS", weakness: "ROCK" }
+];
+
 function getComputerChoice() {
-    let val = Math.floor(Math.random() * 3);
-    let selection = choices[val];
-    return selection;
+    return choices[Math.floor(Math.random() * choices.length)];
 }
 
 function getHumanChoice() {
     let choice = "";
 
-    while (!(choices.find((x)=>x === choice))) {
+    while (!(choices.find((x) => x.val === choice))) {
         let input = prompt("Please enter one of the following: Rock, Paper, Scissors");
         choice = input.toUpperCase();
     }
@@ -22,35 +25,23 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice) {
     console.log(`You chose: ${humanChoice}`)
-    console.log(`Computer chose: ${computerChoice}`)
-    
-    let msg = `You chose: ${humanChoice}\nComputer chose: ${computerChoice}`;
-    
-    if (humanChoice === computerChoice) {
-        console.log("It is a draw-_-");
-        msg = msg + `\n\nIt is a draw-_-`
-        alert(msg)
-        return;
-    }
+    console.log(`Computer chose: ${computerChoice.val}`)
 
-    let rockPaper = (humanChoice === "ROCK" && computerChoice === "PAPER");
-    let paperScissors = (humanChoice === "PAPER" && computerChoice === "SCISSORS");
-    let scissorsRock = (humanChoice === "SCISSORS" && computerChoice === "ROCK");
-    
-    if (rockPaper || paperScissors || scissorsRock) {
-        compScore++;
-        console.log("Computer Wins!!!");
-        msg = msg + `\n\nComputer Wins!!!`;
-        alert(msg);
+    let msg = `You chose: ${humanChoice}\nComputer chose: ${computerChoice.val}`;
+
+
+    if (humanChoice === computerChoice.val) {
+        console.log("draw");
+        alert(msg + "\n\n" + "DRAW!!!!!");
     } else {
-        // In all other scenarios, player wins.
-        humanScore++;
-        console.log("You Win!!!");
-        msg = msg + `\n\nYou Win!!!`;
-        alert(msg);
+        if (computerChoice.weakness === humanChoice) {
+            console.log("You Win!!!");
+            alert(msg + "\n\n" + "You Win!!!");
+        } else {
+            console.log("comp win");
+            alert(msg + "\n\n" + "You Lose :( :( :(");
+        }
     }
-
-    alert(`You: ${humanScore}\nComputer: ${compScore}`);
 }
 
 
