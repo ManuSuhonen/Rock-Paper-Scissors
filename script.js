@@ -13,6 +13,21 @@ let body = document.querySelector("body");
 
 let scoreboardStr = "";
 
+let userSelection = document.querySelector("#user-selection");
+let roboSelection = document.querySelector("#machine-selection");
+let scoreboard = document.querySelector("#score-comp");
+let end = document.querySelector("#end-screen");
+
+let btnHolder = document.querySelector("button").parentElement
+let retryBtn = document.createElement("button");
+
+retryBtn.textContent = "Click here to retry"
+
+retryBtn.addEventListener("click", () => {
+    location.reload();
+});
+
+
 const choices = [
     { val: "ROCK", weakness: "PAPER" },
     { val: "PAPER", weakness: "SCISSORS" },
@@ -38,10 +53,6 @@ function playRound(humanChoice, computerChoice) {
     console.log(`You chose: ${humanChoice}`)
     console.log(`Computer chose: ${computerChoice.val}`)
 
-    let userSelection = document.querySelector("#user-selection");
-    let roboSelection = document.querySelector("#machine-selection");
-    let scoreboard = document.querySelector("#score-comp");
-
     userSelection.textContent = `You chose: ${humanChoice}`;
     roboSelection.textContent = `Computer chose: ${computerChoice.val}`;
 
@@ -50,7 +61,8 @@ function playRound(humanChoice, computerChoice) {
 
     if (humanChoice === computerChoice.val) {
         console.log("draw");
-        //alert(msg + "\n\n" + "DRAW!!!!!");
+        humanScore++;
+        compScore++;
     } else {
         if (computerChoice.weakness === humanChoice) {
             console.log("You Win!!!");
@@ -63,7 +75,7 @@ function playRound(humanChoice, computerChoice) {
         }
     }
 
-    let finalMsg = `Your score: ${humanScore}\nComputer score: ${compScore}`;
+    let finalMsg = `Your score: ${humanScore}.\nComputer score: ${compScore}.`;
 
     console.log(finalMsg);
 
@@ -74,31 +86,19 @@ function playRound(humanChoice, computerChoice) {
     console.log(gamecount.current);
 
     if (gamecount.current == gamecount.max) {
-        alert("game ended....");
+        let sum = humanScore-compScore;
+        if (sum > 0) {
+            end.textContent = "You WIN!!!!!"
+        } else {
+            end.textContent = "You lose :( :(  :("
+        }
+
+        alert(end.textContent);
+
+        btnHolder.innerHTML = "";
+        btnHolder.appendChild(retryBtn);
     }
 }
-
-function playGame() {
-
-    // for (; gamecount.current <= gamecount.max; gamecount.current++) {
-    //     gameCountMsg = `Current Game: ${gamecount.current} of ${gamecount.max}`;
-    //     playRound(getHumanChoice(), getComputerChoice());
-    // }
-
-
-
-    // if (humanScore === compScore) {
-    //     alert(finalMsg + "\n\n" + "Game is a Draw...");
-    // } else {
-    //     if (humanScore > compScore) {
-    //         alert(finalMsg + "\n\n" + "You Win!!!");
-    //     } else {
-    //         alert(finalMsg + "\n\n" + "You Lose :( :( :(");
-    //     }
-    // }
-}
-
-//playGame();
 
 btns.forEach(btn => {
     console.log(`Adding listeners`);
@@ -106,10 +106,5 @@ btns.forEach(btn => {
     btn.onclick = () => {
         playRound(btn.textContent, getComputerChoice());
     };
+
 })
-
-
-// console.log(`Computer chose: ${getComputerChoice().val}`)
-// console.log(`You chose: ${btn.textContent}`)
-//let robo = `Computer chose: ${getComputerChoice().val}`;
-//let human = `You chose: ${btn.textContent}`;
