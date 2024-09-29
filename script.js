@@ -19,14 +19,11 @@ function uiSwitch() {
         document.querySelector('.scoreboard').style.display = "flex";
         userStarted = true;
     }
-
 }
 
 let modal = document.querySelector("dialog");
 
 choiceBtns.forEach(btn => {
-
-
 
     btn.addEventListener("mouseenter", (event) => {
         event.target.style.backgroundColor = 'rgba(177, 100, 100, 0.87)';
@@ -36,7 +33,6 @@ choiceBtns.forEach(btn => {
         event.target.style.backgroundColor = "";
     });
 
-    
 })
 
 function playRound(humanChoice, computerChoice) {
@@ -74,20 +70,20 @@ function playRound(humanChoice, computerChoice) {
 
     rounds++;
     if (rounds == 5) {
-
-        humanScore > compScore
-
+        
         if (humanScore > compScore) {
             document.querySelector('#final-tally').textContent = "YOU WIN!!!";
-        } else {
+        } else if (humanScore < compScore) {
             document.querySelector('#final-tally').textContent = "YOU LOST!!!";
+        } else {
+            document.querySelector('#final-tally').textContent = "Game is a draw.";
         }
 
         let board = document.querySelector('.scoreboard');
 
         let reloadBtn = document.querySelector('#reload-button');
 
-        reloadBtn.style.display="inline-block";
+        reloadBtn.style.display = "inline-block";
 
         reloadBtn.onclick = () => location.reload();
 
