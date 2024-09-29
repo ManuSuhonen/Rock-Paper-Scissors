@@ -5,11 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Rock Paper Scissors</title>
 </head>
 
 <body>
-    <h1>Rock Paper Scissors</h1>
+    <div id="title">
+        <h1>Rock Paper Scissors</h1>
+    </div>
+
+    <div id="buttons">
+        <button type="button" id="rock">🪨</button>
+        <button type="button" id="paper">🗞️</button>
+        <button type="button" id="scissors">✂️</button>
+    </div>
+
+    <div class="initial-state">
+        <p>Press one of the options listed above to get started.</p>
+        <p>The AI is waiting...</p>
+    </div>
+
+    <div class="game-screen">
+        <p id="user-selection">You chose...</p>
+        <p id="machine-selection">AI chose...</p>
+    </div>
+
+    <div class="scoreboard">
+        <p>Score</p>
+        <div id="graphic">
+            <p>You </p>
+            <p class="score-count player-score-graphic"></p>
+            <p id="center">-</p>
+            <p class="score-count computer-score-graphic"></p>
+            <p> Computer</p>
+        </div>
+        <p id="final-tally"></p>
+        <button type="button" id="reload-button">Reload</button>
+    </div>
+
+    <div>
+        <dialog>
+            <!-- <p>popup will appear here</p> -->
+        </dialog>
+    </div>
+
 </body>
 
 </html>

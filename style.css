@@ -1,0 +1,105 @@
+* {
+    /* margin: 0; */
+    /* padding: 0; */
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+}
+
+/* body * {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ff0000;
+} */
+
+/* div {
+    resize: both;
+    overflow: auto;
+} */
+
+#title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    padding: 1rem;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+#buttons>button {
+    font-size: 13em;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.initial-state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    padding: 10px;
+}
+
+
+.game-screen {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.scoreboard {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#graphic {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 100px;
+    border: 5px solid #0FC0FF;
+}
+
+.score-count {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 60px;
+    letter-spacing: 2.2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+
+#reload-button {
+    display: none;
+    font-size: 30px;
+    margin-top: 10px;
+}
