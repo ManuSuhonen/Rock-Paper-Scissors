@@ -1,32 +1,6 @@
 console.log("LOADED");
 
-let humanScore = 0, compScore = 0;
-
-let gamecount = { current: 0, max: 5 };
-let gameCountMsg = "";
-
-console.clear()
-
-let btns = document.querySelectorAll("button");
-
-let body = document.querySelector("body");
-
-let scoreboardStr = "";
-
-let userSelection = document.querySelector("#user-selection");
-let roboSelection = document.querySelector("#machine-selection");
-let scoreboard = document.querySelector("#score-comp");
-let end = document.querySelector("#end-screen");
-
-let btnHolder = document.querySelector("button").parentElement
-let retryBtn = document.createElement("button");
-
-retryBtn.textContent = "Click here to retry"
-
-retryBtn.addEventListener("click", () => {
-    location.reload();
-});
-
+let humanScore = 0, compScore = 0, rounds = 0;
 
 const choices = [
     { val: "ROCK", weakness: "PAPER" },
@@ -34,77 +8,101 @@ const choices = [
     { val: "SCISSORS", weakness: "ROCK" }
 ];
 
-function getComputerChoice() {
-    return choices[Math.floor(Math.random() * choices.length)];
-}
+let choiceBtns = document.querySelectorAll('#buttons > *');
 
-function getHumanChoice() {
-    let choice = "";
+let userStarted = false;
 
-    while (!(choices.find((x) => x.val === choice))) {
-        let input = prompt(gameCountMsg + "\n\nPlease enter one of the following: Rock, Paper, Scissors");
-        choice = input.toUpperCase();
+function uiSwitch() {
+    if (userStarted == false) {
+        document.querySelector('.initial-state').style.display = "none";
+        document.querySelector('.game-screen').style.display = "flex";
+        document.querySelector('.scoreboard').style.display = "flex";
+        userStarted = true;
     }
 
-    return choice;
 }
 
+let modal = document.querySelector("dialog");
+
+choiceBtns.forEach(btn => {
+
+
+
+    btn.addEventListener("mouseenter", (event) => {
+        event.target.style.backgroundColor = 'rgba(177, 100, 100, 0.87)';
+    });
+
+    btn.addEventListener("mouseleave", (event) => {
+        event.target.style.backgroundColor = "";
+    });
+
+    
+})
+
 function playRound(humanChoice, computerChoice) {
-    console.log(`You chose: ${humanChoice}`)
+
+    let playerChoiceElem = document.querySelector('#user-selection');
+    let aiChoiceElem = document.querySelector('#machine-selection');
+
+    let playerChoice = humanChoice.id.toUpperCase();
+
+    console.log(`You chose: ${playerChoice}`)
     console.log(`Computer chose: ${computerChoice.val}`)
 
-    userSelection.textContent = `You chose: ${humanChoice}`;
-    roboSelection.textContent = `Computer chose: ${computerChoice.val}`;
+    uiSwitch();
 
+    playerChoiceElem.textContent = `You chose: ${playerChoice}`
+    aiChoiceElem.textContent = `Computer chose: ${computerChoice.val}`
 
-    let msg = gameCountMsg + `\n\nYou choooooose: ${humanChoice}\nComputer chose: ${computerChoice.val}`;
-
-    if (humanChoice === computerChoice.val) {
-        console.log("draw");
+    if (playerChoice === computerChoice.val) {
         humanScore++;
         compScore++;
     } else {
-        if (computerChoice.weakness === humanChoice) {
-            console.log("You Win!!!");
-            //alert(msg + "\n\n" + "You Win!!!");
+        if (computerChoice.weakness === playerChoice) {
             humanScore++;
         } else {
-            console.log("comp win");
-            //alert(msg + "\n\n" + "You Lose :( :( :(");
             compScore++;
         }
     }
 
-    let finalMsg = `Your score: ${humanScore}.\nComputer score: ${compScore}.`;
+    let playerGraphic = document.querySelector('.player-score-graphic');
 
-    console.log(finalMsg);
+    let aiGraphic = document.querySelector('.computer-score-graphic');
 
-    scoreboard.textContent = finalMsg;
+    playerGraphic.textContent = humanScore;
+    aiGraphic.textContent = compScore;
 
-    gamecount.current++;
+    rounds++;
+    if (rounds == 5) {
 
-    console.log(gamecount.current);
+        humanScore > compScore
 
-    if (gamecount.current == gamecount.max) {
-        let sum = humanScore-compScore;
-        if (sum > 0) {
-            end.textContent = "You WIN!!!!!"
+        if (humanScore > compScore) {
+            document.querySelector('#final-tally').textContent = "YOU WIN!!!";
         } else {
-            end.textContent = "You lose :( :(  :("
+            document.querySelector('#final-tally').textContent = "YOU LOST!!!";
         }
 
-        alert(end.textContent);
+        let board = document.querySelector('.scoreboard');
 
-        btnHolder.innerHTML = "";
-        btnHolder.appendChild(retryBtn);
+        let reloadBtn = document.querySelector('#reload-button');
+
+        reloadBtn.style.display="inline-block";
+
+        reloadBtn.onclick = () => location.reload();
+
+        modal.appendChild(board);
+        modal.showModal();
     }
 }
 
-btns.forEach(btn => {
-    console.log(`Adding listeners`);
+function getComputerChoice() {
+    return choices[Math.floor(Math.random() * choices.length)];
+}
 
-    btn.onclick = () => {
-        playRound(btn.textContent, getComputerChoice());
-    };
+choiceBtns.forEach(btn => {
 
+    btn.addEventListener("click", (event) => {
+        playRound(event.target, getComputerChoice());
+    });
 })
